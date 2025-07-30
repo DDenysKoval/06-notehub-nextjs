@@ -34,7 +34,7 @@ export async function createNote(newNote: NewNote):Promise<Note> {
   }
 }
 
-export async function deleteNote(noteId: number) {
+export async function deleteNote(noteId: string) {
   try {
     const response = await axios.delete<Note>(`/notes/${noteId}`)
     return response.data;
@@ -43,7 +43,7 @@ export async function deleteNote(noteId: number) {
   }
 }
 
-export async function fetchNoteById(noteId:number) {
+export async function fetchNoteById(noteId:string) {
   try {
     const response = await axios.get<Note>(`/notes/${noteId}`)
     return response.data;
