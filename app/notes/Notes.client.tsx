@@ -5,7 +5,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
 import { useDebouncedCallback } from "use-debounce";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import NoteModal from "@/components/Modal/NoteModal";
+import NoteModal from "@/components/Modal/Modal";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
@@ -35,8 +35,14 @@ export default function NotesClient() {
     setIsModalOpen(false);
   };
 
-  const handleChange = useDebouncedCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value),
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    debouncedSetSearch(value)
+  };
+
+  const debouncedSetSearch = useDebouncedCallback((value: string) => {
+    setSearch(value)
+  },
     1000
   );
 
