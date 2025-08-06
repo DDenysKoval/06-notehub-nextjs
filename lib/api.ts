@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { NewNote, Note } from "../types/note";
 
-interface NotesHttpResponse {
+export interface NotesHttpResponse {
   notes: Note[];
   totalPages: number;
 }
