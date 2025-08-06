@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { fetchNotes, NotesHttpResponse } from "@/lib/api";
 import { useDebouncedCallback } from "use-debounce";
@@ -26,9 +26,7 @@ export default function NotesClient({ initialData}:NotesClientProps) {
     initialData: initialData,
   })
 
-  useEffect(() => {
-    setPage(1);
-  }, [search])
+  
 
   const totalPages = data?.totalPages ?? 1
 
@@ -40,13 +38,13 @@ export default function NotesClient({ initialData}:NotesClientProps) {
     setIsModalOpen(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleChange = (value:string) => {
     debouncedSetSearch(value)
   };
 
   const debouncedSetSearch = useDebouncedCallback((value: string) => {
     setSearch(value)
+    setPage(1)
   },
     1000
   );
